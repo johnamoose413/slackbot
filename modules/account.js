@@ -15,7 +15,6 @@ exports.execute = (req, res) => {
     let slackUserId = req.body.user_id,
         oauthObj = auth.getOAuthObject(slackUserId),
         q = "SELECT Id, Name, Phone FROM Account WHERE Name LIKE '%" + req.body.text + "%' LIMIT 1";
-        //lhQ = "SELECT Id, Name, NMA__c, Dollar_NMA__c FROM Land_Holding__c WHERE Account__c = :" + account[0].Id;
 
     let account = [];
 
@@ -43,7 +42,9 @@ exports.execute = (req, res) => {
             }
         });
 
-    /*force.query(oauthObj, lhQ)
+    let lhQ = "SELECT Id, Name, NMA__c, Dollar_NMA__c FROM Land_Holding__c WHERE Account__c = :" + account[0].Id;
+
+    force.query(oauthObj, lhQ)
             .then(data => {
                 let landHoldings = JSON.parse(data).records;
 
@@ -67,5 +68,5 @@ exports.execute = (req, res) => {
                 } else {
                     res.send("An error as occurred " + error);
                 }
-    });*/
+    });
 };
