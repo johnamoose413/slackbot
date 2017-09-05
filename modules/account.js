@@ -14,45 +14,22 @@ exports.execute = (req, res) => {
 
     let slackUserId = req.body.user_id,
         oauthObj = auth.getOAuthObject(slackUserId),
-        q = "SELECT Id, Name, Phone, BillingAddress FROM Account WHERE Name LIKE '%" + req.body.text + "%' LIMIT 1",
-        lhQ = "SELECT Id, Name, NMA__c, Dollar_NMA__c FROM Land_Holding__c WHERE Id = :accounts.Id";
-
-    var accounts;
+        q = "SELECT Id, Name, NMA__c, Dollar_NMA__c, Account.Name FROM Land_Holding__c WHERE Account__r.Name LIKE '%" + req.body.text + "%'";
 
     force.query(oauthObj, q)
         .then(data => {
-            accounts = JSON.parse(data).records;
-            if (accounts && accounts.length>0) {
+            landHoldings = JSON.parse(data).records;
+            if (landHoldings && landHoldings.length>0) {
                 let attachments = [];
-                accounts.forEach(function(account) {
-                    let fields = [];
-                    fields.push({title: "Name", value: account.Name, short:true});
-                    fields.push({title: "Phone", value: account.Phone, short:true});
-                    if (account.BillingAddress) {
-                        fields.push({title: "Address", value: account.BillingAddress.street, short:true});
-                        fields.push({title: "City", value: account.BillingAddress.city + ', ' + account.BillingAddress.state, short:true});
-                    }
-                    fields.push({title: "Open in Salesforce:", value: oauthObj.instance_url + "/" + account.Id, short:false});
-                    attachments.push({color: "#7F8DE1", fields: fields});
-                });
-                res.json({text: "Accounts matching '" + req.body.text + "':", attachments: attachments});
-            } else {
-                res.send("No records");
-            }
-        }).then(data => {
-            let landHoldings = JSON.parse(data).records;
-
-            if(accounts && landHoldings && landHoldings.length > 0) {
-                let attachments = [];
-
                 landHoldings.forEach(function(landHolding) {
                     let fields = [];
-                    fields.push({title: "Name", value: landHolding.Name, short: true});
-                    fields.push({title: "NMA", value: landHolding.NMA__c, short: true});
-                    fields.push({title: "$/NMA", value: landHolding.Dollar_NMA__c, short: true});
-                    attachments.push({color: "#6b3021", fields: fields});
+                    fields.push({title: "Name", value: landHolding.Name, short:true});
+                    fields.push({title: "NMA", value: landHolding.NMA__c, short:true});
+                    fields.push({title: "Dollar/NMA", value: landHolding.Dollar_NMA__c, short:true});
+                    fields.push({title: "Open in Salesforce:", value: oauthObj.instance_url + "/" + landHolding.Id, short:false});
+                    attachments.push({color: "#7F8DE1", fields: fields});
                 });
-                res.json({text: "Land Holdings: ", attachments: attachments});
+                res.json({text: "Land Holdings Belonging To '" + req.body.text + "':", attachments: attachments});
             } else {
                 res.send("No records");
             }
