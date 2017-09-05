@@ -43,8 +43,7 @@ exports.execute = (req, res) => {
             }
         });
 
-    if(account) {
-        force.query(oauthObj, lhQ)
+    /*force.query(oauthObj, lhQ)
             .then(data => {
                 let landHoldings = JSON.parse(data).records;
 
@@ -68,6 +67,5 @@ exports.execute = (req, res) => {
                 } else {
                     res.send("An error as occurred " + error);
                 }
-            });
-    }
+    });*/
 };
