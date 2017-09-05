@@ -30,7 +30,7 @@ exports.execute = (req, res) => {
                 fields.push({title: "Phone", value: account[0].Phone, short: true});
                 fields.push({title: "Open in Salesforce:", value: oauthObj.instance_url + "/" + account[0].Id, short: false});
                 attachments.push({color: "#236fbd", fields: fields});
-                res.json({text: "Account Name: " + account[0].Name + " ", attachments: attachments});
+                //res.json({text: "Account Name: " + account[0].Name + " ", attachments: attachments});
 
                 let lhQ = "SELECT Id, Name, NMA__c, Dollar_NMA__c FROM Land_Holding__c WHERE Account__c = '" + account[0].Id + "'";
 
