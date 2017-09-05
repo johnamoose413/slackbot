@@ -28,7 +28,7 @@ exports.execute = (req, res) => {
                     fields.push({title: "NMA", value: landHolding.NMA__c, short:true});
                     fields.push({title: "Dollar/NMA", value: landHolding.Dollar_NMA__c, short:true});
                     fields.push({title: "Open in Salesforce:", value: oauthObj.instance_url + "/" + landHolding.Id, short:false});
-                    attachments.push({color: "#7F8DE1", fields: fields});
+                    attachments.push({color: "#6b3021", fields: fields});
                 });
                 res.json({text: "Land Holdings Belonging To '" + req.body.text + "':", attachments: attachments});
             } else {
