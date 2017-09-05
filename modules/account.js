@@ -19,6 +19,7 @@ exports.execute = (req, res) => {
     force.query(oauthObj, q)
         .then(data => {
             landHoldings = JSON.parse(data).records;
+            res.send("An error as occurred " + landHoldings.length);
             if (landHoldings && landHoldings.length>0) {
                 let attachments = [];
                 landHoldings.forEach(function(landHolding) {
