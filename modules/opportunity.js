@@ -27,7 +27,7 @@ exports.execute = (req, res) => {
                 opportunities.forEach(function (opportunity) {
                     let fields = [];
                     fields.push({title: "Opportunity", value: opportunity.Name, short: true});
-                    fields.push({title: "Stage", "AAAAA", short: true});
+                    fields.push({title: "Stage", value: opportunity.StageName, short: true});
                     fields.push({
                         title: "Amount",
                         value: new Intl.NumberFormat('en-US', {
