@@ -46,7 +46,7 @@ exports.execute = (req, res) => {
                                     flds.push({title: "Open in Salesforce:", value: oauthObj.instance_url + "/" + landHolding.Id, short:false});
                                     attachments.push({color: "#6b3021", fields: flds});
                                 });
-                                res.json({text: "Land Holdings Belonging To '" + account[0].Name + "':", attachments: atts});
+                                res.json({text: "Land Holdings Belonging To '" + account[0].Name + "':", attachments: attachments});
                             } else {
                                 res.send("No Land Holding records");
                             }
