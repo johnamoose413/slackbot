@@ -49,16 +49,16 @@ exports.execute = (req, res) => {
                 let landHoldings = JSON.parse(data).records;
 
                 if (landHoldings && landHoldings.length>0) {
-                    let attachments = [];
+                    let atts = [];
                     landHoldings.forEach(function(landHolding) {
-                        let fields = [];
-                        fields.push({title: "Name", value: landHolding.Name, short:true});
-                        fields.push({title: "NMA", value: landHolding.NMA__c, short:true});
-                        fields.push({title: "Dollar/NMA", value: landHolding.Dollar_NMA__c, short:true});
-                        fields.push({title: "Open in Salesforce:", value: oauthObj.instance_url + "/" + landHolding.Id, short:false});
-                        attachments.push({color: "#6b3021", fields: fields});
+                        let flds = [];
+                        flds.push({title: "Name", value: landHolding.Name, short:true});
+                        flds.push({title: "NMA", value: landHolding.NMA__c, short:true});
+                        flds.push({title: "Dollar/NMA", value: landHolding.Dollar_NMA__c, short:true});
+                        flds.push({title: "Open in Salesforce:", value: oauthObj.instance_url + "/" + landHolding.Id, short:false});
+                        atts.push({color: "#6b3021", fields: flds});
                     });
-                    res.json({text: "Land Holdings Belonging To '" + req.body.text + "':", attachments: attachments});
+                    res.json({text: "Land Holdings Belonging To '" + req.body.text + "':", attachments: atts});
                 } else {
                     res.send("No Land Holding records");
                 }
