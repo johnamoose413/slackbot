@@ -14,13 +14,13 @@ exports.execute = (req, res) => {
 
     let slackUserId = req.body.user_id,
         oauthObj = auth.getOAuthObject(slackUserId),
-        q = "SELECT Id, Name, Phone FROM Account WHERE Name LIKE '%" + req.body.text + "%' LIMIT 1",
-        lhQ = "SELECT Id, Name, NMA__c, Dollar_NMA__c FROM Land_Holding__c WHERE Account__c = :" + account[0].Id;
+        q = "SELECT Id, Name, Phone FROM Account WHERE Name LIKE '%" + req.body.text + "%' LIMIT 1";
+        //lhQ = "SELECT Id, Name, NMA__c, Dollar_NMA__c FROM Land_Holding__c WHERE Account__c = :" + account[0].Id;
 
     let account = [];
 
     force.query(oauthObj, q)
-        .then(date => {
+        .then(data => {
             account = JSON.parse(data).records;
 
             if(account && account.length > 0) {
