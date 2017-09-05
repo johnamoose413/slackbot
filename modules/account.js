@@ -17,7 +17,7 @@ exports.execute = (req, res) => {
         q = "SELECT Id, Name, Phone FROM Account WHERE Name LIKE '%" + req.body.text + "%' LIMIT 1",
         lhQ = "SELECT Id, Name, NMA__c, Dollar_NMA__c FROM Land_Holding__c WHERE Account__c = :" + account[0].Id;
 
-    var account;
+    let account = [];
 
     force.query(oauthObj, q)
         .then(date => {
