@@ -14,7 +14,7 @@ exports.execute = (req, res) => {
 
     let slackUserId = req.body.user_id,
         oauthObj = auth.getOAuthObject(slackUserId),
-        q = "SELECT Id, Name, NMA__c, Dollar_NMA__c, Account.Name FROM Land_Holding__c WHERE Account__r.Name LIKE '%" + req.body.text + "%'";
+        q = "SELECT Id, Name, NMA__c, Dollar_NMA__c FROM Land_Holding__c WHERE Account__r.Name LIKE '%" + req.body.text + "%'";
 
     force.query(oauthObj, q)
         .then(data => {
