@@ -42,7 +42,7 @@ exports.execute = (req, res) => {
             }
         });
 
-    let lhQ = "SELECT Id, Name, NMA__c, Dollar_NMA__c FROM Land_Holding__c WHERE Account__c = :" + account[0].Id;
+    let lhQ = "SELECT Id, Name, NMA__c, Dollar_NMA__c FROM Land_Holding__c WHERE Account__c = '" + account[0].Id + "'";
 
     force.query(oauthObj, lhQ)
             .then(data => {
