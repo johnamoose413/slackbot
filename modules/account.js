@@ -18,8 +18,8 @@ exports.execute = (req, res) => {
 
     force.query(oauthObj, q)
         .then(data => {
-            landHoldings = JSON.parse(data).records;
-            res.send("An error as occurred " + landHoldings.length);
+            let landHoldings = JSON.parse(data).records;
+
             if (landHoldings && landHoldings.length>0) {
                 let attachments = [];
                 landHoldings.forEach(function(landHolding) {
@@ -38,7 +38,7 @@ exports.execute = (req, res) => {
             if (error.code == 401) {
                 res.send(`Visit this URL to login to Salesforce: https://${req.hostname}/login/` + slackUserId);
             } else {
-                res.send("An error as occurred " + error.body);
+                res.send("An error as occurred " + error);
             }
         });
 };
